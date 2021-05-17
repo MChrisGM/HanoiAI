@@ -52,6 +52,8 @@ def check(display): # Check if last tower (Tower 3) has all the disks in correct
 def move(frm, to): # Move top-most disk from 'Tower frm' to 'Tower to'
     global towers
     if frm == to: return
+    if not 0 < frm <=3 : return
+    if not 0 < to <=3 : return
     try:
         idx1 = 0
         while towers[frm][idx1] == 0: # Get the index of the element at the top of the 'frm' tower
@@ -72,15 +74,30 @@ def move(frm, to): # Move top-most disk from 'Tower frm' to 'Tower to'
         print(E)
         return
 
+def cls():
+  os.system('cls' if os.name=='nt' else 'clear')
 
 setup()
+
+while not solved:
+  cls()
+  display_towers()
+  inpt = input('From To: ').split(' ')
+  if inpt[0] == 'r': # 'r' resets the game
+    setup()
+  else:
+    move(int(inpt[0]),int(inpt[1]))
+  check(False)
+
+cls()
 display_towers()
-check(False)
-move(1, 3)
-move(1, 2)
-move(3, 2)
-move(1, 3)
-move(2, 1)
-move(2, 3)
-move(1, 3)
-display_towers()
+check(True)
+
+# move(1, 3)
+# move(1, 2)
+# move(3, 2)
+# move(1, 3)
+# move(2, 1)
+# move(2, 3)
+# move(1, 3)
+# display_towers()
